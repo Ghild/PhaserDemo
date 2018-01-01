@@ -1,15 +1,35 @@
-var demo ={};
+var demo ={}, centerX = 1500/2, centerY = 1000/2, edo, speed = 10;
 demo.state0 = function(){};
 demo.state0.prototype = {
-    preload: function(){},
+    preload: function(){
+        game.load.image('edo', 'assets/sprites/edo.png');
+    },
     create: function(){
         game.stage.backgroundColor = '#ff9900';
         console.log('Now you are in stage 0');
+        addChangeStateEventListener();
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         
-        addChangeStateEventListener();
+        edo = game.add.sprite(centerX, centerY, 'edo');
+        //edo.anchor.x = 0.5;
+        //edo.anchor.y = 0.5;
+        edo.anchor.setTo(0.5, 0.5);
     },
-    update: function(){}
+    update: function(){
+        if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
+            edo.x += speed;
+        }
+        else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
+            edo.x -= speed;
+        }
+        
+        if(game.input.keyboard.isDown(Phaser.Keyboard.UP)){
+            edo.y -= speed;
+        }
+        else if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
+            edo.y += speed;
+        }
+    }
 };
 
 function changeState(i, stateNum){
